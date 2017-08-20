@@ -16,7 +16,7 @@ with graph.as_default():
             a = tf.placeholder(tf.float32, shape=[None],
                                name='input_placeholder_a')
         with tf.name_scope('intermediate_layer'):
-            b = tf.reduce_prod(a,name='product_a')
+            b = tf.reduce_prod(a, name='product_a')
             c = tf.reduce_sum(a, name='sum_c')
 
         with tf.name_scope('output'):
