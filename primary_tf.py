@@ -20,7 +20,7 @@ with graph.as_default():
             c = tf.reduce_sum(a, name='sum_c')
 
         with tf.name_scope('output'):
-            output = tf.add(b, c, name='ouptut')
+            output = tf.add(b, c, name='output')
 
     with tf.name_scope('update'):
         update_total = total_output.assign_add(output)
@@ -32,13 +32,10 @@ with graph.as_default():
                      name='average')
         tf.summary.scalar('Output',
                           output)
-                          # name='output_summary')
         tf.summary.scalar('Sum of outputs over time',
                           update_total)
-                          # name='total_summary')
         tf.summary.scalar('Average of output over time',
                           avg)
-                          # name='average_summary')
 
     with tf.name_scope('global_ops'):
         init = tf.global_variables_initializer()
@@ -51,10 +48,11 @@ sess.run(init)
 
 def run_graph(input_tensor):
     feed_dict = {a: input_tensor}
-    _, step, summary = sess.run(
+    v, step, summary = sess.run(
         [output, increment_step, merged_summaries],
         feed_dict=feed_dict
     )
+    print(input_tensor, '->', v)
     writer.add_summary(summary, global_step=step)
 
 
